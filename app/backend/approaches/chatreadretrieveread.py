@@ -99,13 +99,14 @@ Search query:
             engine=self.chatgpt_deployment, 
             prompt=prompt, 
             temperature=overrides.get("temperature") or 0.7, 
-            max_tokens=1024, 
+            max_tokens=2048, 
             n=1, 
             stop=["<|im_end|>", "<|im_start|>"])
 
         return {"data_points": results, "answer": completion.choices[0].text, "thoughts": f"Searched for:<br>{q}<br><br>Prompt:<br>" + prompt.replace('\n', '<br>')}
     
-    def get_chat_history_as_text(self, history, include_last_turn=True, approx_max_tokens=1000) -> str:
+    def get_chat_history_as_text(self, history, include_last_turn=True, approx_max_tokens=2000) -> str:
+        #was 1000
         history_text = ""
         for h in reversed(history if include_last_turn else history[:-1]):
             history_text = """<|im_start|>user""" +"\n" + h["user"] + "\n" + """<|im_end|>""" + "\n" + """<|im_start|>assistant""" + "\n" + (h.get("bot") + """<|im_end|>""" if h.get("bot") else "") + "\n" + history_text

@@ -73,7 +73,8 @@ Answer:
             engine=self.openai_deployment, 
             prompt=prompt, 
             temperature=overrides.get("temperature") or 0.3, 
-            max_tokens=1024, 
+            max_tokens=2048,
+            #was 1024 
             n=1, 
             stop=["\n"])
 
